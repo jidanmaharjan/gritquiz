@@ -237,7 +237,7 @@ const Dashboard = () => {
           <div className="flex items-center">
             <Link
               className={`text-2xl p-2 bg-blue-300 hover:bg-blue-200 rounded-full mr-2 ${
-                profile.data.role !== "admin" && "hidden"
+                profile && profile?.data?.role !== "admin" && "hidden"
               }`}
               to="/adminpanel"
             >
@@ -250,7 +250,7 @@ const Dashboard = () => {
             />
             <div>
               <h2 className="font-semibold">
-                Hello, {profile && profile.data.email}
+                Hello, {profile && profile?.data?.email}
               </h2>
               <p className="text-xs">Let's start your quiz</p>
             </div>

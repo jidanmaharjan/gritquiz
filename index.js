@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
 //Config dot env variables
 require("dotenv").config({});
@@ -19,9 +20,9 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => {
-  res.status(200).send("Welcome to gritquiz");
-});
+// app.get("/", (req, res) => {
+//   res.status(200).send("Welcome to gritquiz");
+// });
 
 //Routes imports
 const quizes = require("./routes/quizes");
@@ -32,6 +33,11 @@ const category = require("./routes/category");
 app.use("/v1/quizes", quizes);
 app.use("/v1/auth", auth);
 app.use("/v1/category", category);
+
+app.use(express.static(path.join(__dirname, "./client/build/")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/build/index.html"));
+});
 
 //Run server
 app.listen(process.env.PORT || 4000, () => {
